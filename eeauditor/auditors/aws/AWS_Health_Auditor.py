@@ -82,7 +82,7 @@ def open_health_abuse_events_check(cache: dict, awsAccountId: str, awsRegion: st
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("health")
 def open_health_risk_events_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -158,7 +158,7 @@ def open_health_risk_events_check(cache: dict, awsAccountId: str, awsRegion: str
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("health")
 def open_health_security_events_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -234,4 +234,4 @@ def open_health_security_events_check(cache: dict, awsAccountId: str, awsRegion:
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass

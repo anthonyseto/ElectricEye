@@ -167,7 +167,7 @@ def trusted_advisor_failing_root_mfa_check(cache: dict, awsAccountId: str, awsRe
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("support")
 def trusted_advisor_failing_elb_listener_security_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -295,7 +295,7 @@ def trusted_advisor_failing_elb_listener_security_check(cache: dict, awsAccountI
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("support")
 def trusted_advisor_failing_cloudfront_ssl_cert_iam_certificate_store_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -423,7 +423,7 @@ def trusted_advisor_failing_cloudfront_ssl_cert_iam_certificate_store_check(cach
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("support")
 def trusted_advisor_failing_cloudfront_ssl_cert_on_origin_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -551,7 +551,7 @@ def trusted_advisor_failing_cloudfront_ssl_cert_on_origin_check(cache: dict, aws
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass
 
 @registry.register_check("support")
 def trusted_advisor_failing_exposed_access_keys_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -711,4 +711,4 @@ def trusted_advisor_failing_exposed_access_keys_check(cache: dict, awsAccountId:
             else:
                 print(error)
     else:
-        print('AWS Health Global endpoint is located in us-east-1')
+        pass

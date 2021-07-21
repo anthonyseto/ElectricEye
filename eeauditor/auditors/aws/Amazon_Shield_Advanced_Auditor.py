@@ -32,7 +32,7 @@ cloudfront = boto3.client("cloudfront")
 def shield_advanced_route_53_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.1] Route 53 Hosted Zones should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = route53.list_hosted_zones()
         for hostedzone in response["HostedZones"]:
@@ -163,7 +163,7 @@ def shield_advanced_route_53_protection_check(cache: dict, awsAccountId: str, aw
 def shield_advanced_elb_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.2] Classic Load Balancers should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = elbclassic.describe_load_balancers()
         for classicbalancer in response["LoadBalancerDescriptions"]:
@@ -293,7 +293,7 @@ def shield_advanced_elb_protection_check(cache: dict, awsAccountId: str, awsRegi
 def shield_advanced_elb_v2_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.3] ELBv2 Load Balancers should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = elbv2.describe_load_balancers()
         for loadbalancer in response["LoadBalancers"]:
@@ -448,7 +448,7 @@ def shield_advanced_elb_v2_protection_check(cache: dict, awsAccountId: str, awsR
 def shield_advanced_eip_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.4] Elastic IPs should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = ec2.describe_addresses()
         for elasticip in response["Addresses"]:
@@ -580,7 +580,7 @@ def shield_advanced_eip_protection_check(cache: dict, awsAccountId: str, awsRegi
 def shield_advanced_cloudfront_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.5] CloudFront distributions should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = cloudfront.list_distributions()
         # TODO: Should handle case no results returned
@@ -718,7 +718,7 @@ def shield_advanced_drt_access_check(cache: dict, awsAccountId: str, awsRegion: 
     """[ShieldAdvanced.6] The DDoS Response Team (DRT) should be authorized to take action in your account"""
 
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = shield.describe_drt_access()
         iso8601Time = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
@@ -969,7 +969,7 @@ def shield_advanced_drt_s3_bucket_check(cache: dict, awsAccountId: str, awsRegio
 def shield_advanced_subscription_autorenew_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.8] Shield Advanced subscription should be set to auto-renew"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         response = shield.describe_subscription()
         renewCheck = str(response["Subscription"]["AutoRenew"])
@@ -1078,7 +1078,7 @@ def shield_advanced_subscription_autorenew_check(cache: dict, awsAccountId: str,
 def shield_advanced_global_accelerator_protection_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[ShieldAdvanced.9] Global Accelerator Accelerators should be protected by Shield Advanced"""
     if awsRegion != "us-east-1":
-        print("Shield APIs only available in us-east-1!")
+        pass
     else:
         # Create a Session is us-west-2 - which is where the Global Accelerator API is in
         session = boto3.Session(region_name="us-west-2")
