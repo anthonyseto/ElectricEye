@@ -94,47 +94,43 @@ class EEAuditor(object):
         return values
 
     def run_checks(self, requested_check_name=None, delay=0):
-        # TODO: Add multi-region capabilities here
-        '''
         regionList = []
         ec2regions = boto3.client("ec2")
         for regions in ec2regions.describe_regions()['Regions']:
-            regionName = str(r['RegionName'])
-                optInStatus = str(r['OptInStatus'])
-                if optInStatus == 'not-opted-in':
-                    pass
-                else:
-                    regionList.append(regionName)
+            regionName = str(regions['RegionName'])
+            optInStatus = str(regions['OptInStatus'])
+            if optInStatus == 'not-opted-in':
+                continue
+            else:
+                regionList.append(regionName)
 
         for region in regionList:
-            ### TODO: Implement Below... ###
-        '''
-        for service_name, check_list in self.registry.checks.items():
-            if self.awsRegion not in self.get_regions(service_name):
-                print(f"AWS region {self.awsRegion} not supported for {service_name}")
-                next
+            for service_name, check_list in self.registry.checks.items():
+                if region not in self.get_regions(service_name):
+                    print(f"AWS region {region} not supported for {service_name}")
+                    next
 
-            for check_name, check in check_list.items():
-                # clearing cache for each control whithin a auditor
-                auditor_cache = {}
-                # if a specific check is requested, only run that one check
-                if (
-                    not requested_check_name
-                    or requested_check_name
-                    and requested_check_name == check_name
-                ):
-                    try:
-                        # print(f"Executing check {self.name}.{check_name}")
-                        for finding in check(
-                            cache=auditor_cache,
-                            awsAccountId=self.awsAccountId,
-                            awsRegion=self.awsRegion,
-                            awsPartition=self.awsPartition,
-                        ):
-                            yield finding
-                    except Exception as e:
-                        print(f"Failed to execute check {check_name} with exception {e}")
-            sleep(delay)
+                for check_name, check in check_list.items():
+                    # clearing cache for each control whithin a auditor
+                    auditor_cache = {}
+                    # if a specific check is requested, only run that one check
+                    if (
+                        not requested_check_name
+                        or requested_check_name
+                        and requested_check_name == check_name
+                    ):
+                        try:
+                            # print(f"Executing check {self.name}.{check_name}")
+                            for finding in check(
+                                cache=auditor_cache,
+                                awsAccountId=self.awsAccountId,
+                                awsRegion=region,
+                                awsPartition=self.awsPartition,
+                            ):
+                                yield finding
+                        except Exception as e:
+                            print(f"Failed to execute check {check_name} with exception {e}")
+                sleep(delay)
 
     def print_checks_md(self):
         table = []
@@ -153,6 +149,6 @@ class EEAuditor(object):
                 else:
                     description = ""
                 table.append(
-                    f"|{inspect.getfile(check).rpartition('/')[2]} |{service_name} |{description}"
+                    f"|{inspect.getfile(check).rpartition('/')[2]} | {service_name} | {description}"
                 )
         print("\n".join(table))
