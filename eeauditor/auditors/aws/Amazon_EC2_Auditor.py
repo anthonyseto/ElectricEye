@@ -666,7 +666,6 @@ def ec2_source_dest_verification_check(cache: dict, awsAccountId: str, awsRegion
     except Exception as e:
         print(e)
 
-
 @registry.register_check("ec2")
 def ec2_serial_console_access_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[EC2.5] Serial port access to EC2 should be prohibited unless absolutely required"""
@@ -791,7 +790,6 @@ def ec2_serial_console_access_check(cache: dict, awsAccountId: str, awsRegion: s
         }
         yield finding
 
-
 @registry.register_check("ec2")
 def ec2_ami_age_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
     """[EC2.5] EC2 Instances should use AMIs that are less than 3 months old"""
@@ -848,12 +846,14 @@ def ec2_ami_age_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartiti
                                         "AwsEc2Instance": {
                                             "Type": instanceType,
                                             "ImageId": instanceImage,
-                                            "AmiAge": f"{AmiAge.days} days old",
                                             "VpcId": vpcId,
                                             "SubnetId": subnetId,
                                             "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiAge": f"{AmiAge.days} days old"
                                         }
-                                    },
+                                    }
                                 }
                             ],
                             "Compliance": {
@@ -909,12 +909,14 @@ def ec2_ami_age_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartiti
                                         "AwsEc2Instance": {
                                             "Type": instanceType,
                                             "ImageId": instanceImage,
-                                            "AmiAge": f"{AmiAge.days} days old",
                                             "VpcId": vpcId,
                                             "SubnetId": subnetId,
                                             "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiAge": f"{AmiAge.days} days old"
                                         }
-                                    },
+                                    }
                                 }
                             ],
                             "Compliance": {
@@ -938,7 +940,6 @@ def ec2_ami_age_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartiti
                         yield finding
                 except IndexError or KeyError:
                     pass
-
 
 @registry.register_check("ec2")
 def ec2_ami_status_check(cache: dict, awsAccountId: str, awsRegion: str, awsPartition: str) -> dict:
@@ -995,12 +996,14 @@ def ec2_ami_status_check(cache: dict, awsAccountId: str, awsRegion: str, awsPart
                                         "AwsEc2Instance": {
                                             "Type": instanceType,
                                             "ImageId": instanceImage,
-                                            "AmiStatus": f"{dsc_image_state}",
                                             "VpcId": vpcId,
                                             "SubnetId": subnetId,
                                             "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiStatus": f"{dsc_image_state}"
                                         }
-                                    },
+                                    }
                                 }
                             ],
                             "Compliance": {
@@ -1056,12 +1059,14 @@ def ec2_ami_status_check(cache: dict, awsAccountId: str, awsRegion: str, awsPart
                                         "AwsEc2Instance": {
                                             "Type": instanceType,
                                             "ImageId": instanceImage,
-                                            "AmiStatus": f"{dsc_image_state}",
                                             "VpcId": vpcId,
                                             "SubnetId": subnetId,
                                             "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiStatus": f"{dsc_image_state}"
                                         }
-                                    },
+                                    }
                                 }
                             ],
                             "Compliance": {
@@ -1118,12 +1123,14 @@ def ec2_ami_status_check(cache: dict, awsAccountId: str, awsRegion: str, awsPart
                                         "AwsEc2Instance": {
                                             "Type": instanceType,
                                             "ImageId": instanceImage,
-                                            "AmiStatus": f"{dsc_image_state}",
                                             "VpcId": vpcId,
                                             "SubnetId": subnetId,
                                             "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiStatus": f"{dsc_image_state}"
                                         }
-                                    },
+                                    }
                                 }
                             ],
                             "Compliance": {
@@ -1171,23 +1178,25 @@ def ec2_ami_status_check(cache: dict, awsAccountId: str, awsRegion: str, awsPart
                         },
                         "ProductFields": {"Product Name": "ElectricEye"},
                         "Resources": [
-                            {
-                                "Type": "AwsEc2Instance",
-                                "Id": instanceArn,
-                                "Partition": awsPartition,
-                                "Region": awsRegion,
-                                "Details": {
-                                    "AwsEc2Instance": {
-                                        "Type": instanceType,
-                                        "ImageId": instanceImage,
-                                        "AmiStatus": f"Deregistered",
-                                        "VpcId": vpcId,
-                                        "SubnetId": subnetId,
-                                        "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                {
+                                    "Type": "AwsEc2Instance",
+                                    "Id": instanceArn,
+                                    "Partition": awsPartition,
+                                    "Region": awsRegion,
+                                    "Details": {
+                                        "AwsEc2Instance": {
+                                            "Type": instanceType,
+                                            "ImageId": instanceImage,
+                                            "VpcId": vpcId,
+                                            "SubnetId": subnetId,
+                                            "LaunchedAt": parse(instanceLaunchedAt).isoformat(),
+                                        },
+                                        "Other": {
+                                            "AmiStatus": f"{dsc_image_state}"
+                                        }
                                     }
-                                },
-                            }
-                        ],
+                                }
+                            ],
                         "Compliance": {
                             "Status": "FAILED",
                             "RelatedRequirements": [
